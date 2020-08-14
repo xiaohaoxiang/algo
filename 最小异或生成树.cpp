@@ -9,7 +9,7 @@ typedef long long ll;
 
 const int MAX_W = 2;
 const int MAX_BIT = 30;
-const int MAX_N = 100088;
+const int MAX_N = 200088;
 
 struct P
 {
@@ -24,37 +24,20 @@ int pt;
 char buf[64];
 void insert(const char *const str, P *root);
 
-struct Edge
-{
-    int to;
-    int next;
-    int val;
-    Edge()
-    {
-    }
-    Edge(int to, int next, int val) : to(to), next(next), val(val)
-    {
-    }
-} G[MAX_N];
-int head[MAX_N], deg;
-void init(const int n);
-void add_edge(int u, int v, int cost);
-
 // A[i]表示第i个点的点权
 int A[MAX_N];
 
 // 进行启发式分治
 vector<int> dfs2(P *const v, int cnt, ll &ans);
-int find(P *const v, const int x);
 
 // 求节点编号从0到n-1的最小异或生成树
 ll min_xor_tree(const int n);
 
+/* Codeforces 888G */
 int main()
 {
     int N;
     scanf("%d", &N);
-    init(N);
     for (int i = 0; i < N; i++)
     {
         scanf("%d", A + i);
@@ -78,20 +61,6 @@ void insert(const char *const str, P *root)
         p = p->next[index];
     }
     p->val = num;
-}
-
-void init(const int n)
-{
-    fill(head, head + n + 8, -1);
-    deg = 0;
-}
-
-void add_edge(int u, int v, int cost)
-{
-    G[deg] = {v, head[u], cost};
-    head[u] = deg++;
-    G[deg] = {u, head[v], cost};
-    head[v] = deg++;
 }
 
 ll min_xor_tree(const int n)
